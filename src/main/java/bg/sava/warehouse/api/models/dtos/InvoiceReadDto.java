@@ -12,11 +12,10 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class BatchReadDto {
-    private UUID id;
-    private String lot;
-    private int quantity;
-    private double purchasePrice;
-    private double sellPrice;
-    private LocalDate expirationDate;
+public class InvoiceReadDto {
+    private int id;
+    private LocalDate invoiceDate;
+    private UUID orderId;
+    private String invoiceStatus;
+    private double totalAmount;
 }

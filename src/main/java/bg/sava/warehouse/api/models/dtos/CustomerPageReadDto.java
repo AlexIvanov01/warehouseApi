@@ -11,8 +11,8 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class BatchPageReadDto {
-    private ProductReadDto product;
-    private List<BatchReadDto> batches;
+public class CustomerPageReadDto {
+    private List<CustomerReadDto> customers;
     private int totalPages;
 }
+

@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:latest       # You can choose other versions if needed
+    container_name: mysql-container
+    environment:
+      MYSQL_ROOT_PASSWORD: root    # Set root password
+      MYSQL_DATABASE: warehouse       # Name of the database to create
+      MYSQL_ROOT_USER: root
+    ports:
+      - "3306:3306"         # Expose MySQL port to host machine
+    volumes:
+      - mysql-data:/var/lib/mysql   # Persist data between container restarts
+
+
+volumes:
+  mysql-data:
+

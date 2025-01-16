@@ -6,17 +6,14 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
-import java.util.UUID;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class BatchReadDto {
-    private UUID id;
-    private String lot;
-    private int quantity;
-    private double purchasePrice;
-    private double sellPrice;
-    private LocalDate expirationDate;
+public class InvoiceCreateDto {
+    private int id;
+    private LocalDate invoiceDate;
+    private String invoiceStatus;
+    private double totalAmount;
 }

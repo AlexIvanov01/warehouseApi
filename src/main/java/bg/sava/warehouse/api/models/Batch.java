@@ -15,7 +15,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @Entity
 @Builder
-public class ProductBatch {
+public class Batch {
     @Id
     @GeneratedValue
     private UUID id;
@@ -29,4 +29,5 @@ public class ProductBatch {
     @ManyToOne( fetch = FetchType.EAGER )
     @JoinColumn(name = "product_id", referencedColumnName = "id")
     private Product product;
+
 }
