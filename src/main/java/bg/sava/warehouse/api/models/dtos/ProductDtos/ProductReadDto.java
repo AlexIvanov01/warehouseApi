@@ -1,4 +1,4 @@
-package bg.sava.warehouse.api.models.dtos;
+package bg.sava.warehouse.api.models.dtos.ProductDtos;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

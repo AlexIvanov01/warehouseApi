@@ -1,6 +1,5 @@
-package bg.sava.warehouse.api.models.dtos;
+package bg.sava.warehouse.api.models.dtos.CustomerDtos;
 
-import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -16,7 +15,6 @@ public class CustomerCreateDto {
     @NotBlank
     private String name;
     private String companyName;
-    @Email
     private String email;
     private String phoneNumber;
     private String address;

@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 
 import java.time.Instant;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.UUID;
 
 @Data
@@ -15,9 +16,10 @@ import java.util.UUID;
 @AllArgsConstructor
 @Entity
 @Builder
+@Table(name = "BATCH")
 public class Batch {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
     private String lot;
     private Integer quantity;
@@ -27,7 +29,23 @@ public class Batch {
     private Instant batchDateUpdated = null;
     private LocalDate expirationDate;
     @ManyToOne( fetch = FetchType.EAGER )
-    @JoinColumn(name = "product_id", referencedColumnName = "id")
+    @JoinColumn(name = "product_id", nullable=false)
     private Product product;
+    @OneToMany(mappedBy = "batch", fetch = FetchType.LAZY)
+    private List<OrderBatch> orders;
 
+
+    @Override
+    public String toString() {
+        return "Batch{" +
+                "id=" + id +
+                ", lot='" + lot + '\'' +
+                ", quantity=" + quantity +
+                ", purchasePrice=" + purchasePrice +
+                ", sellPrice=" + sellPrice +
+                ", expirationDate=" + expirationDate +
+                ", product=" + (product != null ? product.getName() : "null") +
+                ", orders=" + (orders != null ? orders.size() : 0) +
+                '}';
+    }
 }

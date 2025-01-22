@@ -1,9 +1,9 @@
 package bg.sava.warehouse.api.controllers;
 
-import bg.sava.warehouse.api.models.dtos.CustomerCreateDto;
-import bg.sava.warehouse.api.models.dtos.CustomerPageReadDto;
-import bg.sava.warehouse.api.models.dtos.CustomerReadDto;
-import bg.sava.warehouse.api.models.dtos.CustomerUpdateDto;
+import bg.sava.warehouse.api.models.dtos.CustomerDtos.CustomerCreateDto;
+import bg.sava.warehouse.api.models.dtos.CustomerDtos.CustomerPageReadDto;
+import bg.sava.warehouse.api.models.dtos.CustomerDtos.CustomerReadDto;
+import bg.sava.warehouse.api.models.dtos.CustomerDtos.CustomerUpdateDto;
 import bg.sava.warehouse.api.services.CustomerService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -13,17 +13,29 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@Table(name = "INVOICE")
 public class Invoice {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private LocalDate invoiceDate;
 
     @OneToOne
-    @JoinColumn(name = "order_id", referencedColumnName = "id", nullable = false)
-    private Orders order;
+    @JoinColumn(name = "order_id", nullable = false)
+    private Order order;
 
     private String invoiceStatus;
     private Double totalAmount;
+
+
+    @Override
+    public String toString() {
+        return "Invoice{" +
+                "id=" + id +
+                ", invoiceDate=" + invoiceDate +
+                ", order=" + (order != null ? order.getId() : "null") +
+                ", invoiceStatus='" + invoiceStatus + '\'' +
+                ", totalAmount=" + totalAmount +
+                '}';
+    }
 }

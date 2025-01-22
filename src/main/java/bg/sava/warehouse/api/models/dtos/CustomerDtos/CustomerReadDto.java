@@ -1,6 +1,5 @@
-package bg.sava.warehouse.api.models.dtos;
+package bg.sava.warehouse.api.models.dtos.CustomerDtos;
 
-import jakarta.annotation.sql.DataSourceDefinition;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

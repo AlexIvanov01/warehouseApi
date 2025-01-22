@@ -1,5 +1,6 @@
-package bg.sava.warehouse.api.models.dtos;
+package bg.sava.warehouse.api.models.dtos.BatchDtos;
 
+import bg.sava.warehouse.api.models.dtos.ProductDtos.ProductReadDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

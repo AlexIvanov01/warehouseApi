@@ -1,4 +1,4 @@
-package bg.sava.warehouse.api.models.dtos;
+package bg.sava.warehouse.api.models.dtos.OrderDtos;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,8 +11,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class CustomerPageReadDto {
-    private List<CustomerReadDto> customers;
+public class OrderPageReadDto {
+    private List<OrderReadDto> orders;
     private int totalPages;
 }
-

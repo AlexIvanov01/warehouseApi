@@ -1,6 +1,9 @@
 package bg.sava.warehouse.api.controllers;
 
-import bg.sava.warehouse.api.models.dtos.*;
+import bg.sava.warehouse.api.models.dtos.BatchDtos.BatchCreateDto;
+import bg.sava.warehouse.api.models.dtos.BatchDtos.BatchPageReadDto;
+import bg.sava.warehouse.api.models.dtos.BatchDtos.BatchReadDto;
+import bg.sava.warehouse.api.models.dtos.BatchDtos.BatchUpdateDto;
 import bg.sava.warehouse.api.services.BatchService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,11 +14,11 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/batches")
-public class BatchController {
+public class BatchesController {
     private final BatchService batchService;
 
     @Autowired
-    public BatchController(BatchService batchService) {
+    public BatchesController(BatchService batchService) {
         this.batchService = batchService;
     }
 

@@ -1,10 +1,10 @@
 package bg.sava.warehouse.api.services;
 
 import bg.sava.warehouse.api.models.Product;
-import bg.sava.warehouse.api.models.dtos.ProductCreateDto;
-import bg.sava.warehouse.api.models.dtos.ProductPageReadDto;
-import bg.sava.warehouse.api.models.dtos.ProductReadDto;
-import bg.sava.warehouse.api.models.dtos.ProductUpdateDto;
+import bg.sava.warehouse.api.models.dtos.ProductDtos.ProductCreateDto;
+import bg.sava.warehouse.api.models.dtos.ProductDtos.ProductPageReadDto;
+import bg.sava.warehouse.api.models.dtos.ProductDtos.ProductReadDto;
+import bg.sava.warehouse.api.models.dtos.ProductDtos.ProductUpdateDto;
 import bg.sava.warehouse.api.repository.ProductRepository;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
@@ -35,6 +35,7 @@ public class ProductService {
 
     public ProductPageReadDto getProducts(int pageNumber, int pageSize) {
         Pageable page = PageRequest.of(pageNumber, pageSize);
+
         List<Product> productItems = productRepository.findAll(page).getContent();
         Type listType = new TypeToken<List<ProductReadDto>>() {}.getType();
 

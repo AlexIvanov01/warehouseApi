@@ -1,13 +1,14 @@
-package bg.sava.warehouse.api.models.dtos;
+package bg.sava.warehouse.api.models.dtos.OrderDtos;
 
-import jakarta.validation.constraints.NotNull;
+import bg.sava.warehouse.api.models.dtos.CustomerDtos.CustomerReadDto;
+import bg.sava.warehouse.api.models.dtos.InvocieDtos.InvoiceReadDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
-import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 @Data
@@ -22,5 +23,5 @@ public class OrderReadDto {
     private String orderStatus;
     private CustomerReadDto customer;
     private InvoiceReadDto invoice;
-    private List<BatchReadDto> batches;
+    private Map<UUID, Integer> batches;
 }

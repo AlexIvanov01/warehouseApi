@@ -1,4 +1,4 @@
-package bg.sava.warehouse.api.models.dtos;
+package bg.sava.warehouse.api.models.dtos.CustomerDtos;
 
 import jakarta.validation.constraints.Email;
 import lombok.AllArgsConstructor;

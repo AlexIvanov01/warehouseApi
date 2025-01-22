@@ -1,4 +1,4 @@
-package bg.sava.warehouse.api.models.dtos;
+package bg.sava.warehouse.api.models.dtos.OrderDtos;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -7,7 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
-import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 @Data
@@ -22,5 +22,5 @@ public class OrderCreateDto {
     @NotNull
     private UUID customerId;
     @NotNull
-    private List<UUID> batches;
+    private Map<UUID, Integer> batchesMap;
 }

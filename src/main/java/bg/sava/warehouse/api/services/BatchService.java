@@ -2,7 +2,11 @@ package bg.sava.warehouse.api.services;
 
 import bg.sava.warehouse.api.models.Product;
 import bg.sava.warehouse.api.models.Batch;
-import bg.sava.warehouse.api.models.dtos.*;
+import bg.sava.warehouse.api.models.dtos.BatchDtos.BatchCreateDto;
+import bg.sava.warehouse.api.models.dtos.BatchDtos.BatchPageReadDto;
+import bg.sava.warehouse.api.models.dtos.BatchDtos.BatchReadDto;
+import bg.sava.warehouse.api.models.dtos.BatchDtos.BatchUpdateDto;
+import bg.sava.warehouse.api.models.dtos.ProductDtos.ProductReadDto;
 import bg.sava.warehouse.api.repository.BatchRepository;
 import bg.sava.warehouse.api.repository.ProductRepository;
 import org.modelmapper.ModelMapper;

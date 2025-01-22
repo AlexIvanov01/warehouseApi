@@ -1,9 +1,9 @@
 package bg.sava.warehouse.api.controllers;
 
-import bg.sava.warehouse.api.models.dtos.ProductCreateDto;
-import bg.sava.warehouse.api.models.dtos.ProductPageReadDto;
-import bg.sava.warehouse.api.models.dtos.ProductReadDto;
-import bg.sava.warehouse.api.models.dtos.ProductUpdateDto;
+import bg.sava.warehouse.api.models.dtos.ProductDtos.ProductCreateDto;
+import bg.sava.warehouse.api.models.dtos.ProductDtos.ProductPageReadDto;
+import bg.sava.warehouse.api.models.dtos.ProductDtos.ProductReadDto;
+import bg.sava.warehouse.api.models.dtos.ProductDtos.ProductUpdateDto;
 import bg.sava.warehouse.api.services.ProductService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +36,7 @@ public class ProductsController {
     public ProductReadDto getProductById(@PathVariable @Valid UUID id) {
         return productService.getProductById(id);
     }
+
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public ProductReadDto createProduct(@RequestBody @Valid ProductCreateDto productCreateDto) {

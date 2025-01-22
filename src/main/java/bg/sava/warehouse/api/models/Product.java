@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.Instant;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -14,9 +15,10 @@ import java.util.UUID;
 @NoArgsConstructor
 @Data
 @Builder
+@Table(name = "PRODUCT")
 public class Product {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
     private String name;
     private String description;
@@ -30,4 +32,6 @@ public class Product {
     private Float weight;
     private Instant productDateAdded = Instant.now();
     private Instant productDateUpdated = null;
+    @OneToMany(mappedBy = "product")
+    private List<Batch> batches;
 }

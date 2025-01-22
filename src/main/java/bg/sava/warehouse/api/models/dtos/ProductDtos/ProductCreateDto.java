@@ -1,4 +1,4 @@
-package bg.sava.warehouse.api.models.dtos;
+package bg.sava.warehouse.api.models.dtos.ProductDtos;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
