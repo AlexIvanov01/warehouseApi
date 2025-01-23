@@ -28,17 +28,16 @@ public class Order {
     @ManyToOne
     @JoinColumn(name = "customer_id", nullable=false)
     private Customer customer;
-    @OneToOne(mappedBy = "order")
+    @OneToOne(mappedBy = "order", cascade = CascadeType.ALL)
     private Invoice invoice;
     private String status;
-    @OneToMany(mappedBy = "order")
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<OrderBatch> batches = new ArrayList<>();
 
-    public OrderBatch addBatch(Batch batch, int count) {
+    public void addBatch(Batch batch, int count) {
         OrderBatch orderBatch = new OrderBatch(this, batch, count);
         batches.add(orderBatch);
         batch.getOrders().add(orderBatch);
-        return orderBatch;
     }
 
     @Override
@@ -50,7 +49,7 @@ public class Order {
                 ", shippingAddress='" + shippingAddress + '\'' +
                 ", customer=" + (customer != null ? customer.getName() : "null") +
                 ", status='" + status + '\'' +
-                ", batches=" + (batches != null ? batches.size() : 0) + batches.toString() +
+                ", batches=" + (batches != null ? batches.toString() : 0) +
                 '}';
     }
 }

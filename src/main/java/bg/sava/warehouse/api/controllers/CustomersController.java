@@ -25,9 +25,9 @@ public class CustomersController {
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public CustomerPageReadDto getCustomers(
-            @RequestParam(required = false, defaultValue = "0") int pageNumber,
+            @RequestParam(required = false, defaultValue = "1") int pageNumber,
             @RequestParam(defaultValue = "10") int pageSize) {
-        return customerService.getCustomers(pageNumber, pageSize);
+        return customerService.getCustomers(pageNumber - 1, pageSize);
     }
 
     @GetMapping("/{id}")
@@ -35,6 +35,7 @@ public class CustomersController {
     public CustomerReadDto getCustomerById(@PathVariable @Valid UUID id) {
         return customerService.getCustomerById(id);
     }
+
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public CustomerReadDto createCustomer(@RequestBody @Valid CustomerCreateDto customerCreateDto) {

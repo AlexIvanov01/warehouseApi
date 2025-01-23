@@ -10,7 +10,8 @@ import bg.sava.warehouse.api.models.dtos.OrderDtos.OrderReadDto;
 import bg.sava.warehouse.api.repository.BatchRepository;
 import bg.sava.warehouse.api.repository.CustomerRepository;
 import bg.sava.warehouse.api.repository.OrderBatchRepository;
-import bg.sava.warehouse.api.repository.OrdersRepository;
+import bg.sava.warehouse.api.repository.OrderRepository;
+import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -25,14 +26,14 @@ import java.util.stream.Collectors;
 @Service
 public class OrderService {
 
-    private final OrdersRepository ordersRepository;
+    private final OrderRepository ordersRepository;
     private final ModelMapper orderMapper;
     private final CustomerRepository customerRepository;
     private final BatchRepository batchRepository;
     private final OrderBatchRepository orderBatchRepository;
 
     @Autowired
-    public OrderService(OrdersRepository ordersRepository, ModelMapper orderMapper, CustomerRepository customerRepository, BatchRepository batchRepository, OrderBatchRepository orderBatchRepository) {
+    public OrderService(OrderRepository ordersRepository, ModelMapper orderMapper, CustomerRepository customerRepository, BatchRepository batchRepository, OrderBatchRepository orderBatchRepository) {
         this.ordersRepository = ordersRepository;
         this.orderMapper = orderMapper;
         this.customerRepository = customerRepository;
@@ -40,7 +41,7 @@ public class OrderService {
         this.orderBatchRepository = orderBatchRepository;
     }
 
-    public OrderReadDto createOrder(OrderCreateDto orderCreateDto) {
+    public OrderReadDto createOrder(OrderCreateDto orderCreateDto){
 
         Order order = orderMapper.map(orderCreateDto, Order.class);
         order.setId(null);
@@ -111,6 +112,7 @@ public class OrderService {
         return dto;
     }
 
+    @Transactional
     public void deleteOrder(UUID id) {
         if (ordersRepository.existsById(id)) {
             ordersRepository.deleteById(id);

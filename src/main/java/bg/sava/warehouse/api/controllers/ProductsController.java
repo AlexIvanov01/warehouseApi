@@ -26,9 +26,9 @@ public class ProductsController {
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public ProductPageReadDto getProducts(
-            @RequestParam(required = false, defaultValue = "0") int pageNumber,
+            @RequestParam(required = false, defaultValue = "1") int pageNumber,
             @RequestParam(defaultValue = "10") int pageSize) {
-        return productService.getProducts(pageNumber, pageSize);
+        return productService.getProducts(pageNumber - 1, pageSize);
     }
 
     @GetMapping("/{id}")

@@ -32,6 +32,6 @@ public class Product {
     private Float weight;
     private Instant productDateAdded = Instant.now();
     private Instant productDateUpdated = null;
-    @OneToMany(mappedBy = "product")
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Batch> batches;
 }

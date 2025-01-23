@@ -32,7 +32,7 @@ public class Customer {
     private String bic;
     private String vatNumber;
     private String uic;
-    @OneToMany(mappedBy = "customer")
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.DETACH)
     private List<Order> orders;
 
     @Override

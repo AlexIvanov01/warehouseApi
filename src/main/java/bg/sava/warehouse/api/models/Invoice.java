@@ -17,10 +17,12 @@ import java.time.LocalDate;
 public class Invoice {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "mySeqGen")
+    @SequenceGenerator(name = "mySeqGen", sequenceName = "my_sequence_name", allocationSize = 1)
     private long id;
     private LocalDate invoiceDate;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "order_id", nullable = false)
     private Order order;
 

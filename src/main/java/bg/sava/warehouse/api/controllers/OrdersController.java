@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/orders")
+@RequestMapping("/api/orders")
 public class OrdersController {
 
     private final OrderService orderService;
@@ -33,9 +33,9 @@ public class OrdersController {
     }
 
     @GetMapping
-    public OrderPageReadDto getOrders( @RequestParam(required = false, defaultValue = "0") int pageNumber,
+    public OrderPageReadDto getOrders( @RequestParam(required = false, defaultValue = "1") int pageNumber,
                                        @RequestParam(defaultValue = "10") int pageSize) {
-        return orderService.getOrders(pageNumber, pageSize);
+        return orderService.getOrders(pageNumber - 1, pageSize);
     }
 
     @DeleteMapping("/{id}")

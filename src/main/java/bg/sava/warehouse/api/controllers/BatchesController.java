@@ -24,21 +24,22 @@ public class BatchesController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public BatchPageReadDto getProductBatches(
-            @RequestParam(required = false, defaultValue = "0") int pageNumber,
+    public BatchPageReadDto getBatches(
+            @RequestParam(required = false, defaultValue = "1") int pageNumber,
             @RequestParam(defaultValue = "10") int pageSize,
             @RequestParam UUID productId) {
-        return batchService.getBatches(productId, pageNumber, pageSize);
+        return batchService.getBatches(productId, pageNumber - 1, pageSize);
     }
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public BatchReadDto getProductBatchById(@PathVariable @Valid UUID id) {
+    public BatchReadDto getBatchById(@PathVariable @Valid UUID id) {
         return batchService.getBatchById(id);
     }
+
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public BatchReadDto createProduct(@RequestBody @Valid BatchCreateDto batchCreateDto,
+    public BatchReadDto createBatch(@RequestBody @Valid BatchCreateDto batchCreateDto,
                                         @RequestParam UUID productId) {
         return batchService.createBatch(productId, batchCreateDto);
     }
