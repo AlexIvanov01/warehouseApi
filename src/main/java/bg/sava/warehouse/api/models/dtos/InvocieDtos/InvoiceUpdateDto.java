@@ -1,5 +1,7 @@
 package bg.sava.warehouse.api.models.dtos.InvocieDtos;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.PastOrPresent;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -12,7 +14,10 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @Builder
 public class InvoiceUpdateDto {
+    @PastOrPresent
     private LocalDate invoiceDate;
+    @NotBlank
     private String invoiceStatus;
+    @NotBlank
     private double totalAmount;
 }

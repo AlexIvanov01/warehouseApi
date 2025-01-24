@@ -48,7 +48,7 @@ public class BatchService {
 
         List<BatchReadDto> dtos = mapper.map(productBatches.getContent(), listType);
 
-        int pageCount = (int) Math.ceil(batchRepository.count() / (float) pageSize);
+        int pageCount = productBatches.getTotalPages();
 
         BatchPageReadDto batchPageReadDto = new BatchPageReadDto();
         batchPageReadDto.setBatches(dtos);

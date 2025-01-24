@@ -1,5 +1,7 @@
 package bg.sava.warehouse.api.controllers;
 
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -37,6 +39,13 @@ public class GlobalExceptionHandler {
         String errorMessage = String.format("Invalid value '%s' for parameter '%s'. Expected type: %s.",
                 ex.getValue(), ex.getName(), Objects.requireNonNull(ex.getRequiredType()).getSimpleName());
         return ResponseEntity.badRequest().body(errorMessage);
+    }
+
+
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    public ResponseEntity<String> handleDataIntegrityViolationException(DataIntegrityViolationException ex) {
+        String errorMessage = "Data integrity violation: " + ex.getMostSpecificCause().getMessage();
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(errorMessage);
     }
 
     @ExceptionHandler(Exception.class)

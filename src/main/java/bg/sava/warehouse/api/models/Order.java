@@ -28,7 +28,7 @@ public class Order {
     @ManyToOne
     @JoinColumn(name = "customer_id", nullable=false)
     private Customer customer;
-    @OneToOne(mappedBy = "order", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "order")
     private Invoice invoice;
     private String status;
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)

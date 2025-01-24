@@ -9,11 +9,11 @@ import bg.sava.warehouse.api.models.dtos.OrderDtos.OrderPageReadDto;
 import bg.sava.warehouse.api.models.dtos.OrderDtos.OrderReadDto;
 import bg.sava.warehouse.api.repository.BatchRepository;
 import bg.sava.warehouse.api.repository.CustomerRepository;
-import bg.sava.warehouse.api.repository.OrderBatchRepository;
 import bg.sava.warehouse.api.repository.OrderRepository;
 import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -30,15 +30,13 @@ public class OrderService {
     private final ModelMapper orderMapper;
     private final CustomerRepository customerRepository;
     private final BatchRepository batchRepository;
-    private final OrderBatchRepository orderBatchRepository;
 
     @Autowired
-    public OrderService(OrderRepository ordersRepository, ModelMapper orderMapper, CustomerRepository customerRepository, BatchRepository batchRepository, OrderBatchRepository orderBatchRepository) {
+    public OrderService(OrderRepository ordersRepository, ModelMapper orderMapper, CustomerRepository customerRepository, BatchRepository batchRepository) {
         this.ordersRepository = ordersRepository;
         this.orderMapper = orderMapper;
         this.customerRepository = customerRepository;
         this.batchRepository = batchRepository;
-        this.orderBatchRepository = orderBatchRepository;
     }
 
     public OrderReadDto createOrder(OrderCreateDto orderCreateDto){
@@ -65,7 +63,6 @@ public class OrderService {
             order.addBatch(batch.get(), count);
         }
         ordersRepository.save(order);
-        orderBatchRepository.saveAll(order.getBatches());
         
         for (Batch batch : batches) {
             Integer newQuantity = batch.getQuantity() - orderCreateDto.getBatchesMap().get(batch.getId());
@@ -79,18 +76,18 @@ public class OrderService {
 
     public OrderPageReadDto getOrders(int pageNumber, int pageSize) {
         Pageable page = PageRequest.of(pageNumber, pageSize);
-        List<Order> orders = ordersRepository.findAll(page).getContent();
+        Page<Order> orders = ordersRepository.findAll(page);
 
         List<OrderReadDto> dtos = new ArrayList<>();
 
-        for(Order order : orders) {
+        for(Order order : orders.getContent()) {
             OrderReadDto dto = orderMapper.map(order, OrderReadDto.class);
             dto.setBatches(order.getBatches().stream()
                     .collect(Collectors.toMap(batch -> batch.getBatch().getId(), OrderBatch::getCount)));
             dtos.add(dto);
         }
         
-        int pageCount = (int) Math.ceil(ordersRepository.count() / (float) pageSize);
+        int pageCount = orders.getTotalPages();
 
 
         OrderPageReadDto orderPageReadDto = new OrderPageReadDto();
@@ -114,10 +111,18 @@ public class OrderService {
 
     @Transactional
     public void deleteOrder(UUID id) {
-        if (ordersRepository.existsById(id)) {
-            ordersRepository.deleteById(id);
-        } else {
+        Optional<Order> order = ordersRepository.findById(id);
+        if (order.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Order not found");
         }
+        if(order.get().getInvoice() != null) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Order has invoice and cannot be deleted");
+        }
+
+        for (OrderBatch orderBatch : order.get().getBatches()) {
+            int updatedQuantity = orderBatch.getBatch().getQuantity() + orderBatch.getCount();
+            batchRepository.updateQuantityById(orderBatch.getBatch().getId(), updatedQuantity);
+        }
+        ordersRepository.delete(order.get());
     }
 }

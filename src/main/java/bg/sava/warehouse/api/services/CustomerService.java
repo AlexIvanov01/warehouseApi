@@ -9,6 +9,7 @@ import bg.sava.warehouse.api.repository.CustomerRepository;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -33,12 +34,12 @@ public class CustomerService {
 
     public CustomerPageReadDto getCustomers(int pageNumber, int pageSize) {
         Pageable page = PageRequest.of(pageNumber, pageSize);
-        List<Customer> CustomerItems = customerRepository.findAll(page).getContent();
+        Page<Customer> customerItems = customerRepository.findAll(page);
         Type listType = new TypeToken<List<CustomerReadDto>>() {}.getType();
 
-        List<CustomerReadDto> dtos = mapper.map(CustomerItems, listType);
+        List<CustomerReadDto> dtos = mapper.map(customerItems.getContent(), listType);
 
-        int pageCount = (int) Math.ceil(customerRepository.count() / (float) pageSize);
+        int pageCount = customerItems.getTotalPages();
 
         CustomerPageReadDto CustomerPageReadDto = new CustomerPageReadDto();
         CustomerPageReadDto.setCustomers(dtos);

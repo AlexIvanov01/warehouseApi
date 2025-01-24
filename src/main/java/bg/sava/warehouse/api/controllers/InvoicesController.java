@@ -32,9 +32,9 @@ public class InvoicesController {
         return invoiceService.getInvoiceById(id);
     }
 
-    @PostMapping
+    @PostMapping("/{orderId}")
     @ResponseStatus(HttpStatus.CREATED)
-    public InvoiceReadDto createInvoice(@RequestParam @Valid UUID orderId) {
+    public InvoiceReadDto createInvoice(@PathVariable @Valid UUID orderId) {
         return invoiceService.generateInvoice(orderId);
     }
 

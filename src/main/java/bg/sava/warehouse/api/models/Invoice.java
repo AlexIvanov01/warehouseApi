@@ -22,8 +22,8 @@ public class Invoice {
     private long id;
     private LocalDate invoiceDate;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "order_id", nullable = false)
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "order_id", referencedColumnName = "id")
     private Order order;
 
     private String invoiceStatus;

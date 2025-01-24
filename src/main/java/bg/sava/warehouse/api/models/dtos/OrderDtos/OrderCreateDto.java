@@ -1,5 +1,6 @@
 package bg.sava.warehouse.api.models.dtos.OrderDtos;
 
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -19,7 +20,7 @@ public class OrderCreateDto {
     private LocalDate shippedDate;
     private String shippingAddress;
     private String orderStatus;
-    @NotNull
+    @NotBlank
     private UUID customerId;
     @NotNull
     private Map<UUID, Integer> batchesMap;
