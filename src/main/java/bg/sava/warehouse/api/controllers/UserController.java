@@ -5,6 +5,7 @@ import bg.sava.warehouse.api.models.dtos.UserDto.UserAuthentication;
 import bg.sava.warehouse.api.models.dtos.UserDto.UserCreateDto;
 import bg.sava.warehouse.api.services.AuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,6 +23,7 @@ public class UserController {
     }
 
     @PostMapping("/register")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public AuthenticationResponse register(@RequestBody UserCreateDto user) {
         return userService.register(user);
     }

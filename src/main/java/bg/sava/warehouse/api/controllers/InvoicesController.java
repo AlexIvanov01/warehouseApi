@@ -5,6 +5,7 @@ import bg.sava.warehouse.api.services.InvoiceService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -34,6 +35,7 @@ public class InvoicesController {
 
     @PostMapping("/{orderId}")
     @ResponseStatus(HttpStatus.CREATED)
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'MANAGER')")
     public InvoiceReadDto createInvoice(@PathVariable @Valid UUID orderId) {
         return invoiceService.generateInvoice(orderId);
     }
@@ -41,6 +43,7 @@ public class InvoicesController {
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
+    @PreAuthorize("hasAuthority('ADMIN')")
     public void deleteInvoice(@PathVariable @Valid Long id) {
         invoiceService.deleteInvoice(id);
     }

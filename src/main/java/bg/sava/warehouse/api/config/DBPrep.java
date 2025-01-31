@@ -1,7 +1,9 @@
 package bg.sava.warehouse.api.config;
 
 import bg.sava.warehouse.api.models.*;
+import bg.sava.warehouse.api.models.dtos.UserDto.UserCreateDto;
 import bg.sava.warehouse.api.repository.*;
+import bg.sava.warehouse.api.services.AuthenticationService;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -23,19 +25,33 @@ public class DBPrep implements CommandLineRunner {
     private final CustomerRepository customerRepository;
     private final OrderRepository orderRepository;
     private final InvoiceRepository invoiceRepository;
+    private final AuthenticationService authenticationService;
+    private final UserRepository userRepository;
 
     @Autowired
-    public DBPrep(ProductRepository productRepository, BatchRepository batchRepository, CustomerRepository customerRepository, OrderRepository orderRepository, InvoiceRepository invoiceRepository) {
+    public DBPrep(ProductRepository productRepository, BatchRepository batchRepository, CustomerRepository customerRepository, OrderRepository orderRepository, InvoiceRepository invoiceRepository, UserRepository userRepository, AuthenticationService authenticationService) {
         this.productRepository = productRepository;
         this.batchRepository = batchRepository;
         this.customerRepository = customerRepository;
         this.orderRepository = orderRepository;
         this.invoiceRepository = invoiceRepository;
+        this.authenticationService = authenticationService;
+        this.userRepository = userRepository;
     }
 
     @Override
     @Transactional
     public void run(String... args){
+
+        if(userRepository.count() == 0){
+            new UserCreateDto();
+            UserCreateDto user = UserCreateDto.builder()
+                    .username("admin")
+                    .password("admin")
+                    .role(Role.ADMIN)
+                    .build();
+            authenticationService.register(user);
+        }
 
         if (productRepository.count() == 0) {
             logger.info("Seeding process started");

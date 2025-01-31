@@ -6,6 +6,7 @@ import bg.sava.warehouse.api.models.dtos.OrderDtos.OrderReadDto;
 import bg.sava.warehouse.api.services.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
@@ -23,6 +24,7 @@ public class OrdersController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'MANAGER')")
     public OrderReadDto createOrder(@RequestBody OrderCreateDto orderCreateDto) {
         return orderService.createOrder(orderCreateDto);
     }
@@ -40,6 +42,7 @@ public class OrdersController {
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
+    @PreAuthorize("hasAuthority('ADMIN')")
     public void deleteOrder(@PathVariable UUID id) {
         orderService.deleteOrder(id);
     }

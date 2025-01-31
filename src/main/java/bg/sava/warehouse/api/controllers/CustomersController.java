@@ -8,6 +8,7 @@ import bg.sava.warehouse.api.services.CustomerService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
@@ -38,6 +39,7 @@ public class CustomersController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'MANAGER')")
     public CustomerReadDto createCustomer(@RequestBody @Valid CustomerCreateDto customerCreateDto) {
         return customerService.createCustomer(customerCreateDto);
     }
@@ -45,12 +47,14 @@ public class CustomersController {
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'MANAGER')")
     public void updateCustomer(@PathVariable UUID id, @RequestBody @Valid CustomerUpdateDto customerUpdateDto) {
         customerService.updateCustomer(id, customerUpdateDto);
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
+    @PreAuthorize("hasAuthority('ADMIN')")
     public void deleteCustomer(@PathVariable UUID id) {
         customerService.deleteCustomer(id);
     }

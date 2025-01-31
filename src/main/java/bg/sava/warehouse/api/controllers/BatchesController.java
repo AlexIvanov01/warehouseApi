@@ -8,6 +8,7 @@ import bg.sava.warehouse.api.services.BatchService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
@@ -39,6 +40,7 @@ public class BatchesController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'MANAGER')")
     public BatchReadDto createBatch(@RequestBody @Valid BatchCreateDto batchCreateDto,
                                         @RequestParam UUID productId) {
         return batchService.createBatch(productId, batchCreateDto);
@@ -47,12 +49,14 @@ public class BatchesController {
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'MANAGER')")
     public void updateBatch(@PathVariable UUID id, @RequestBody @Valid BatchUpdateDto batchUpdateDto) {
         batchService.updateBatch(id, batchUpdateDto);
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
+    @PreAuthorize("hasAuthority('ADMIN')")
     public void deleteBatch(@PathVariable @Valid UUID id) {
         batchService.deleteBatch(id);
     }
