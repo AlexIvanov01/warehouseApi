@@ -1,6 +1,7 @@
 package bg.sava.warehouse.api.models.dtos.ProductDtos;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -25,8 +26,8 @@ public class ProductUpdateDto{
         private String status;
         @NotBlank
         private String barcode;
-        @NotBlank
-        private Integer reorderLevel;
-        @NotBlank
+        @NotNull
+        private int reorderLevel;
+        @NotNull
         private Float weight;
 }

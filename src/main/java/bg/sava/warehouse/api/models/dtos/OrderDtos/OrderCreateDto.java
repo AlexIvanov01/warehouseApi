@@ -1,7 +1,7 @@
 package bg.sava.warehouse.api.models.dtos.OrderDtos;
 
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -22,6 +22,6 @@ public class OrderCreateDto {
     private String orderStatus;
     @NotBlank
     private UUID customerId;
-    @NotNull
+    @NotEmpty
     private Map<UUID, Integer> batchesMap;
 }

@@ -1,6 +1,8 @@
 package bg.sava.warehouse.api.models.dtos.BatchDtos;
 
+import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,12 +17,13 @@ import java.time.LocalDate;
 public class BatchUpdateDto {
     @NotBlank
     private String lot;
-    @NotBlank
+    @NotNull
     private Integer quantity;
-    @NotBlank
+    @NotNull
     private Double purchasePrice;
-    @NotBlank
+    @NotNull
     private Double sellPrice;
-    @NotBlank
+    @NotNull
+    @Future
     private LocalDate expirationDate;
 }

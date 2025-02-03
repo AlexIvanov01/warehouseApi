@@ -49,8 +49,8 @@ public class ProductsController {
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     @PreAuthorize("hasAnyAuthority('ADMIN', 'MANAGER')")
-    public void updateProduct(@PathVariable UUID id, @RequestBody @Valid ProductUpdateDto productUpdateDto) {
-        productService.updateProduct(id, productUpdateDto);
+    public ProductReadDto updateProduct(@PathVariable UUID id, @RequestBody @Valid ProductUpdateDto productUpdateDto) {
+        return productService.updateProduct(id, productUpdateDto);
     }
 
     @DeleteMapping("/{id}")

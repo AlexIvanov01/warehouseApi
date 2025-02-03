@@ -1,8 +1,8 @@
 package bg.sava.warehouse.api.models.dtos.BatchDtos;
 
+import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.PastOrPresent;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -24,6 +24,6 @@ public class BatchCreateDto {
     @NotNull
     private Double sellPrice;
     @NotNull
-    @PastOrPresent
+    @Future
     private LocalDate expirationDate;
 }

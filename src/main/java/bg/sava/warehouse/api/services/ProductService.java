@@ -65,7 +65,7 @@ public class ProductService {
         return productMapper.map(product, ProductReadDto.class);
     }
 
-    public void updateProduct(UUID id, ProductUpdateDto productUpdateDto) {
+    public ProductReadDto updateProduct(UUID id, ProductUpdateDto productUpdateDto) {
         Optional<Product> productItem = productRepository.findById(id);
         if (productItem.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Product not found");
@@ -73,7 +73,7 @@ public class ProductService {
         Product product = productMapper.map(productUpdateDto, Product.class);
         product.setId(id);
         product.setProductDateUpdated(Instant.now());
-        productRepository.save(product);
+        return productMapper.map(productRepository.save(product), ProductReadDto.class);
     }
 
     public void deleteProduct(UUID id) {
