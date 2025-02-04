@@ -1,6 +1,5 @@
 package bg.sava.warehouse.api.models.dtos.CustomerDtos;
 
-import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -16,7 +15,7 @@ public class CustomerUpdateDto {
     private String name;
     @NotBlank
     private String companyName;
-    @Email
+    @NotBlank
     private String email;
     @NotBlank
     private String phoneNumber;

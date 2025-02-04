@@ -13,7 +13,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @Builder
 public class InvoiceReadDto {
-    private int id;
+    private long id;
     private LocalDate invoiceDate;
     private UUID orderId;
     private String invoiceStatus;
