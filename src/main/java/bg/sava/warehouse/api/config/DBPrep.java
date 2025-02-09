@@ -6,6 +6,7 @@ import bg.sava.warehouse.api.repository.*;
 import bg.sava.warehouse.api.services.AuthenticationService;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 import org.slf4j.Logger;
@@ -28,6 +29,9 @@ public class DBPrep implements CommandLineRunner {
     private final AuthenticationService authenticationService;
     private final UserRepository userRepository;
 
+    @Value("${spring.profiles.active:default}")
+    private String activeProfile;
+
     @Autowired
     public DBPrep(ProductRepository productRepository, BatchRepository batchRepository, CustomerRepository customerRepository, OrderRepository orderRepository, InvoiceRepository invoiceRepository, UserRepository userRepository, AuthenticationService authenticationService) {
         this.productRepository = productRepository;
@@ -42,6 +46,10 @@ public class DBPrep implements CommandLineRunner {
     @Override
     @Transactional
     public void run(String... args){
+
+        if (!"dev".equals(activeProfile)) {
+            return;
+        }
 
         if(userRepository.count() == 0){
             new UserCreateDto();

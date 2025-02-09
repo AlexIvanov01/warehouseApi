@@ -91,9 +91,9 @@ public class BatchService {
 
     public void deleteBatch(UUID id) {
         if (batchRepository.existsById(id)) {
-            batchRepository.deleteById(id); // Delete by ID
+            batchRepository.deleteById(id);
         } else {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Product not found");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Batch not found");
         }
     }
 }
